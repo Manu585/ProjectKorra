@@ -114,6 +114,7 @@ public class ConfigManager {
 			    config.addDefault("Board.Extras.RaiseEarthWall", Element.EARTH.getColor().getName());
 			    config.addDefault("Board.Extras.SurgeWave", Element.WATER.getColor().getName());
 			    config.addDefault("Board.Extras.SpoutHop", Element.WATER.getColor().getName());
+				config.addDefault("Board.Extras.IceSpikeField", Element.ICE.getColor().getName());
 			}
 
 			config.addDefault("Extras.Water.NightMessage", "Your waterbending has become empowered due to the moon rising.");
@@ -891,6 +892,7 @@ public class ConfigManager {
 			config.addDefault("Abilities.Air.AirShield.InitialRadius", 1);
 			config.addDefault("Abilities.Air.AirShield.Streams", 5);
 			config.addDefault("Abilities.Air.AirShield.Speed", 10);
+			config.addDefault("Abilities.Air.AirShield.Push", 0.5);
 			config.addDefault("Abilities.Air.AirShield.Particles", 5);
 			config.addDefault("Abilities.Air.AirShield.DynamicCooldown", false);
 
@@ -1341,8 +1343,8 @@ public class ConfigManager {
 			config.addDefault("Abilities.Earth.Extraction.Enabled", true);
 			config.addDefault("Abilities.Earth.Extraction.SelectRange", 5);
 			config.addDefault("Abilities.Earth.Extraction.Cooldown", 500);
-			config.addDefault("Abilities.Earth.Extraction.TripleLootChance", 10);
-			config.addDefault("Abilities.Earth.Extraction.DoubleLootChance", 30);
+			config.addDefault("Abilities.Earth.Extraction.TripleLootChance", 10.0);
+			config.addDefault("Abilities.Earth.Extraction.DoubleLootChance", 30.0);
 
 			config.addDefault("Abilities.Earth.LavaFlow.Enabled", true);
 			config.addDefault("Abilities.Earth.LavaFlow.ShiftCooldown", 20000);
@@ -1735,6 +1737,7 @@ public class ConfigManager {
 			config.addDefault("Abilities.Air.AirBurst.ChargeTime", 1000);
 			config.addDefault("Abilities.Air.AirBurst.Damage", 3);
 			config.addDefault("Abilities.Air.AirShield.IsToggle", true);
+			config.addDefault("Abilities.Air.AirShield.Knockback", 2.5);
 			config.addDefault("Abilities.Air.Suffocate.Cooldown", 0);
 			config.addDefault("Abilities.Air.Suffocate.ChargeTime", 1000);
 			config.addDefault("Abilities.Air.Suffocate.Damage", 3);
