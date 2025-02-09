@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import com.djrapitops.plan.extension.ExtensionService;
 import com.projectkorra.projectkorra.hooks.PlanExtension;
+import com.projectkorra.projectkorra.region.Lands;
 import com.projectkorra.projectkorra.region.RegionProtection;
 import org.bukkit.Bukkit;
 import org.bukkit.Statistic;
@@ -160,6 +161,9 @@ public class ProjectKorra extends JavaPlugin {
 	public void onLoad() {
 		if (Bukkit.getPluginManager().getPlugin("WorldGuard") != null) {
 			WorldGuardFlag.registerBendingWorldGuardFlag();
+		}
+		if (Bukkit.getPluginManager().getPlugin("Lands") != null) {
+			Lands.createBendingFlags(this);
 		}
 	}
 

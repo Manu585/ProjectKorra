@@ -3,8 +3,10 @@ package com.projectkorra.projectkorra.firebending.combo;
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element.SubElement;
 import com.projectkorra.projectkorra.GeneralMethods;
+import com.projectkorra.projectkorra.ability.AirAbility;
 import com.projectkorra.projectkorra.ability.CoreAbility;
 import com.projectkorra.projectkorra.ability.ElementalAbility;
+import com.projectkorra.projectkorra.ability.FireAbility;
 import com.projectkorra.projectkorra.command.Commands;
 import com.projectkorra.projectkorra.configuration.ConfigManager;
 import com.projectkorra.projectkorra.firebending.util.FireDamageTimer;
@@ -90,10 +92,17 @@ public class FireComboStream extends BukkitRunnable {
 
 		for (int i = 0; i < this.density; i++) {
 			if (this.useNewParticles) {
-				this.particleEffect.display(this.location, 1, this.spread, this.spread, this.spread);
+				if (this.coreAbility instanceof FireAbility) {
+					((FireAbility) this.coreAbility).playFirebendingParticles(this.location, 1, this.spread, this.spread, this.spread);
+				} else if (this.coreAbility instanceof AirAbility) {
+					AirAbility.playAirbendingParticles(this.location, 1, this.spread, this.spread, this.spread);
+				} else {
+					this.particleEffect.display(this.location, 1, this.spread, this.spread, this.spread);
+				}
 			} else {
 				this.location.getWorld().playEffect(this.location, Effect.MOBSPAWNER_FLAMES, 0, 15);
 			}
+
 		}
 
 		emitFirebendingLight(this.location);

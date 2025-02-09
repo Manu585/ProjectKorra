@@ -1,18 +1,5 @@
 package com.projectkorra.projectkorra.board;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
-import java.util.function.Supplier;
-
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.ProjectKorra;
 import com.projectkorra.projectkorra.ability.ComboAbility;
@@ -20,21 +7,26 @@ import com.projectkorra.projectkorra.ability.CoreAbility;
 import com.projectkorra.projectkorra.ability.util.MultiAbilityManager;
 import com.projectkorra.projectkorra.configuration.ConfigManager;
 import com.projectkorra.projectkorra.storage.DBConnection;
-
 import com.projectkorra.projectkorra.util.ChatUtil;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
-import net.md_5.bungee.api.ChatColor;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 
 /**
  * Manages every individual {@link BendingBoard}
  */
 public final class BendingBoardManager {
-	
+
 	private BendingBoardManager() {}
-	
+
 	private static final Set<String> disabledWorlds = new HashSet<>();
 	private static final Map<String, ChatColor> trackedCooldowns = new ConcurrentHashMap<>();
 	private static final Set<UUID> disabledPlayers = Collections.synchronizedSet(new HashSet<>());
@@ -58,10 +50,10 @@ public final class BendingBoardManager {
 
 	private static void initialize() {
 		enabled = ConfigManager.getConfig().getBoolean("Properties.BendingBoard");
-		
+
 		disabledWorlds.clear();
 		disabledWorlds.addAll(ConfigManager.getConfig().getStringList("Properties.DisabledWorlds"));
-		
+
 		if (ConfigManager.languageConfig.get().contains("Board.Extras")) {
 			ConfigurationSection section = ConfigManager.languageConfig.get().getConfigurationSection("Board.Extras");
 			for (String key : section.getKeys(false)) {
@@ -74,7 +66,7 @@ public final class BendingBoardManager {
 			}
 		}
 	}
-	
+
 	/**
 	 * Check if the player has the BendingBoard toggled off (disabled)
 	 * @param player {@link Player} to check toggled
@@ -131,7 +123,7 @@ public final class BendingBoardManager {
 			if (bPlayer == null) {
 				return Optional.empty();
 			}
-			
+
 			scoreboardPlayers.put(player, boardSupplier.apply(bPlayer));
 		}
 
@@ -166,12 +158,12 @@ public final class BendingBoardManager {
 			if (MultiAbilityManager.hasMultiAbilityBound(player)) {
 				scoreboardPlayers.get(player).updateAll();
 			}
-			
+
 			if (name == null || name.isEmpty()) {
 				scoreboardPlayers.get(player).clearSlot(slot);
 				return;
 			}
-			
+
 			CoreAbility coreAbility = CoreAbility.getAbility(name);
 			if (coreAbility instanceof ComboAbility) {
 				scoreboardPlayers.get(player).updateMisc(name, coreAbility.getElement().getColor(), forceCooldown);
@@ -193,7 +185,7 @@ public final class BendingBoardManager {
 	public static void changeActiveSlot(Player player, int newSlot) {
 		getBoard(player).ifPresent((board) -> board.setActiveSlot(newSlot));
 	}
-	
+
 
 	/**
 	 * Some abilities use internal cooldowns with custom names that don't correspond to bound abilities' names.

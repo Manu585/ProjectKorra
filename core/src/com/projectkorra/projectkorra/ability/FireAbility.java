@@ -1,10 +1,12 @@
 package com.projectkorra.projectkorra.ability;
 
+import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.Element.SubElement;
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ProjectKorra;
 import com.projectkorra.projectkorra.ability.util.Collision;
+import com.projectkorra.projectkorra.ability.util.CustomParticleManager;
 import com.projectkorra.projectkorra.configuration.ConfigManager;
 import com.projectkorra.projectkorra.util.LightManager;
 import com.projectkorra.projectkorra.util.ParticleEffect;
@@ -228,8 +230,23 @@ public abstract class FireAbility extends ElementalAbility {
 		}
 	}
 
-	public void playFirebendingParticles(final Location loc, final int amount, final double xOffset, final double yOffset, final double zOffset) {
-		if (this.getBendingPlayer().canUseSubElement(SubElement.BLUE_FIRE)) {
+//	public void playFirebendingParticles(final Location loc, final int amount, final double xOffset, final double yOffset, final double zOffset) {
+//		if (this.getBendingPlayer().canUseSubElement(SubElement.BLUE_FIRE)) {
+//			ParticleEffect.SOUL_FIRE_FLAME.display(loc, amount, xOffset, yOffset, zOffset);
+//		} else {
+//			ParticleEffect.FLAME.display(loc, amount, xOffset, yOffset, zOffset);
+//		}
+//	}
+
+	public void playFirebendingParticles(Location loc, int amount, double xOffset, double yOffset, double zOffset) {
+		BendingPlayer bPlayer = this.getBendingPlayer();
+
+		boolean handled = CustomParticleManager.displayCustomParticles(bPlayer, this, loc, amount, xOffset, yOffset, zOffset);
+		if (handled) {
+			return;
+		}
+
+		if (bPlayer.canUseSubElement(SubElement.BLUE_FIRE)) {
 			ParticleEffect.SOUL_FIRE_FLAME.display(loc, amount, xOffset, yOffset, zOffset);
 		} else {
 			ParticleEffect.FLAME.display(loc, amount, xOffset, yOffset, zOffset);
