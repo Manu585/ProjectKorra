@@ -2,6 +2,7 @@ package com.projectkorra.projectkorra.hooks;
 
 import static java.util.stream.Collectors.joining;
 
+import com.projectkorra.projectkorra.configuration.ConfigManager;
 import com.projectkorra.projectkorra.util.TimeUtil;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.md_5.bungee.api.ChatColor;
@@ -48,7 +49,7 @@ public class PlaceholderAPIHook extends PlaceholderExpansion {
 			if (player.hasPermission("bending.avatar") || (bPlayer.hasElement(Element.AIR) && bPlayer.hasElement(Element.EARTH) && bPlayer.hasElement(Element.FIRE) && bPlayer.hasElement(Element.WATER))) {
 				c = Element.AVATAR.getColor();
 				e = Element.AVATAR.getName();
-			} else if (bPlayer.getElements().size() > 0) {
+			} else if (!bPlayer.getElements().isEmpty()) {
 				c = bPlayer.getElements().get(0).getColor();
 				e = bPlayer.getElements().get(0).getName();
 			}
@@ -61,6 +62,29 @@ public class PlaceholderAPIHook extends PlaceholderExpansion {
 			return bPlayer.getElements().stream().map(item -> item.getColor() + item.getName()).collect(joining(" "));
 		} else if (params.equals("subelements")) {
 			return bPlayer.getSubElements().stream().map(item -> item.getColor() + item.getName()).collect(joining(" "));
+		} else if (params.equals("hudelementcolor")) {
+			String hexCode = "#FFFFFF";
+			if (player.hasPermission("bending.avatar") || (bPlayer.hasElement(Element.AIR) && bPlayer.hasElement(Element.EARTH) && bPlayer.hasElement(Element.FIRE) && bPlayer.hasElement(Element.WATER))) {
+				hexCode = ConfigManager.languageConfig.get().getString("Chat.Colors.Avatar");
+			} else if (!bPlayer.getElements().isEmpty()) {
+				String element = bPlayer.getElements().get(0).getName();
+				switch (element.toLowerCase()) {
+					case "air":
+						hexCode = ConfigManager.languageConfig.get().getString("Chat.Colors.Air");
+						break;
+					case "earth":
+						hexCode = ConfigManager.languageConfig.get().getString("Chat.Colors.Earth");
+						break;
+					case "fire":
+						hexCode = ConfigManager.languageConfig.get().getString("Chat.Colors.Fire");
+						break;
+					case "water":
+						hexCode = ConfigManager.languageConfig.get().getString("Chat.Colors.Water");
+						break;
+				}
+				return  hexCode;
+			}
+			return hexCode;
 		} else if (params.startsWith("cooldown_")) {
 			String string = params.substring("cooldown_".length());
 
@@ -112,7 +136,7 @@ public class PlaceholderAPIHook extends PlaceholderExpansion {
 	@Override
 	public List<String> getPlaceholders() {
 		return Arrays.asList("slot", "slot1", "slot2", "slot3", "slot4", "slot5", "slot6", "slot7", "slot8", "slot9",
-				"element", "elementcolor", "elements", "subelements", "cooldown_<ability>", "cooldown_slot", "cooldown_slot<1-9>", "cooldown_choose");
+				"element", "elementcolor", "elements", "subelements", "cooldown_<ability>", "cooldown_slot", "cooldown_slot<1-9>", "cooldown_choose", "hudelementcolor");
 	}
 
 	public void unregister() {
