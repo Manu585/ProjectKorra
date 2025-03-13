@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.projectkorra</groupId>
-    <artifactId>projectkorra</artifactId>
+    <artifactId>projectkorra-parent</artifactId>
     <version>1.12.0-BendersDestiny</version>
   </parent>
 
