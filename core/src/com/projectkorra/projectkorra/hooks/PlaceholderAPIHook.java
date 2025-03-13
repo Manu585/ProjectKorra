@@ -81,6 +81,9 @@ public class PlaceholderAPIHook extends PlaceholderExpansion {
 					case "water":
 						hexCode = ConfigManager.languageConfig.get().getString("Chat.Colors.Water");
 						break;
+					case "chi":
+						hexCode = ConfigManager.languageConfig.get().getString("Chat.Colors.Chi");
+						break;
 				}
 				return  hexCode;
 			}
