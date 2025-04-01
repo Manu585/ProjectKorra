@@ -1,5 +1,6 @@
 package com.projectkorra.projectkorra.event;
 
+import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.OfflineBendingPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
