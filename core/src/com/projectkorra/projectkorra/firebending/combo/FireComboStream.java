@@ -1,6 +1,7 @@
 package com.projectkorra.projectkorra.firebending.combo;
 
 import com.projectkorra.projectkorra.BendingPlayer;
+import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.Element.SubElement;
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.AirAbility;
@@ -44,6 +45,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * stream for all their progress methods. If someone else was reliant on that,
  * they can use this ability instead.
  */
+@Deprecated
 public class FireComboStream extends BukkitRunnable {
 	private boolean useNewParticles;
 	private boolean cancelled;
@@ -117,7 +119,9 @@ public class FireComboStream extends BukkitRunnable {
 
 		}
 
-		emitFirebendingLight(this.location);
+		if (this.coreAbility.getElement() == Element.FIRE) {
+			emitFirebendingLight(this.location);
+		}
 
 		if (GeneralMethods.checkDiagonalWall(this.location, this.direction)) {
 			this.remove();
