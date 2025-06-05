@@ -87,8 +87,8 @@ public class OfflineBendingPlayer {
     protected final Map<String, Cooldown> cooldowns = new HashMap<>();
     protected final Set<Element> toggledElements = new HashSet<>();
     protected final Set<Element> toggledPassives = new HashSet<>();
-
-
+    protected int maxStamina = 20;
+    protected int currentStamina = maxStamina;
 
     private int currentSlot;
     private long lastAccessed;
@@ -913,6 +913,30 @@ public class OfflineBendingPlayer {
 
     public void saveCooldowns() {
         this.saveCooldowns(true);
+    }
+
+    public int getMaxStamina() {
+        return this.maxStamina;
+    }
+
+    public int getCurrentStamina() {
+        return this.currentStamina;
+    }
+
+    public void setCurrentStamina(int currentStamina) {
+        this.currentStamina = currentStamina;
+    }
+
+    public void setMaxStamina(int maxStamina) {
+        this.maxStamina = maxStamina;
+    }
+
+    public boolean consumeStamina(int amount) {
+        if (getCurrentStamina() >= amount) {
+            setCurrentStamina(getCurrentStamina() - amount);
+            return true;
+        }
+        return false;
     }
 
     /**

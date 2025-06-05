@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.projectkorra.projectkorra.util.StaminaManager;
 import org.apache.commons.lang3.Validate;
 
 import org.bukkit.Bukkit;
@@ -109,6 +110,7 @@ public abstract class Manager implements Listener {
 	public static void startup() {
 		registerManager(StatisticsManager.class);
 		registerManager(FlightHandler.class);
+		registerManager(StaminaManager.class);
 	}
 
 	/**

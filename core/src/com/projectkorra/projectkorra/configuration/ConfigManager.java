@@ -1493,6 +1493,7 @@ public class ConfigManager {
 			config.addDefault("Abilities.Fire.Combustion.Speed", 25);
 
 			config.addDefault("Abilities.Fire.FireBlast.Enabled", true);
+			config.addDefault("Abilities.Fire.FireBlast.ManaCost", 2);
 			config.addDefault("Abilities.Fire.FireBlast.Speed", 20);
 			config.addDefault("Abilities.Fire.FireBlast.Range", 20);
 			config.addDefault("Abilities.Fire.FireBlast.CollisionRadius", 1.0);

@@ -333,6 +333,17 @@ public abstract class FireAbility extends ElementalAbility {
 		}
 	}
 
+	public static void playOutOfStaminaAnimation(final Location loc) {
+		if (getConfig().getBoolean("Properties.Fire.PlaySound")) {
+			final float volume = (float) getConfig().getDouble("Properties.Fire.OutOfMana.Volume");
+			final float pitch = (float) getConfig().getDouble("Properties.Fire.OutOfMana.Pitch");
+		}
+
+		if (loc.getWorld() == null) return;
+		loc.getWorld().playSound(loc, Sound.BLOCK_FIRE_EXTINGUISH, 1F, 2F);
+		loc.getWorld().spawnParticle(Particle.SMOKE_NORMAL, loc, 5, 0.1, 0.1, 0.1, 0.01);
+	}
+
 	/**
 	 * Apply modifiers to this value. Applies the day factor to it
 	 * @param value The value to modify

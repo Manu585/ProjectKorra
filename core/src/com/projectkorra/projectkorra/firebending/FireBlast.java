@@ -9,7 +9,6 @@ import com.projectkorra.projectkorra.attribute.markers.DayNightFactor;
 import com.projectkorra.projectkorra.region.RegionProtection;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.block.BlastFurnace;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.type.Campfire;
@@ -104,8 +103,15 @@ public class FireBlast extends FireAbility {
 		this.direction = player.getEyeLocation().getDirection().normalize();
 		this.location = this.location.add(this.direction.clone());
 
+		System.out.println(getStaminaCost());
+
+		if (!bPlayer.consumeStamina(getStaminaCost())) {
+			FireAbility.playOutOfStaminaAnimation(GeneralMethods.getMainHandLocation(player));
+			return;
+		}
+
 		this.start();
-		this.bPlayer.addCooldown("FireBlast", this.cooldown);
+		// this.bPlayer.addCooldown("FireBlast", this.cooldown);
 	}
 
 	private void setFields() {

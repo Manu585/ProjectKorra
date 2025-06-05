@@ -1,5 +1,6 @@
 package com.projectkorra.projectkorra.ability;
 
+import com.projectkorra.projectkorra.configuration.ConfigManager;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
@@ -156,4 +157,8 @@ public interface Ability {
 	 * @see BendingPlayer#canBend(CoreAbility)
 	 */
 	public Location getLocation();
+
+	default int getStaminaCost() {
+		return ConfigManager.defaultConfig.get().getInt("Abilities." + getElement().getName() + "." + getName() + ".ManaCost");
+	}
 }
